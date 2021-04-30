@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -10,10 +12,12 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm
 from flask_gravatar import Gravatar
 
-MY_SECRET_KEY = "n/5X.q[^Vk£G_}a}8:c@-2ke~dH*3"
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = MY_SECRET_KEY
+
+load_dotenv(".env")
+app.config['SECRET_KEY'] = os.environ.get("MY_SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
